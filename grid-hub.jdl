@@ -1,0 +1,59 @@
+entity Wall {
+	name String required unique
+    height Integer required min(0)
+    width Integer required min(0)
+    minSlope Integer required max(90) min(0)
+    maxSlope Integer required max(90) min(0)
+    rows Integer required
+    columns Integer required
+    photo ImageBlob required
+}
+
+entity Hold {
+	photoCoordinatesX Integer
+    photoCoordinatesY Integer
+    column Integer
+    row Integer
+    holdType HoldType
+    holdDifficulty Difficulty
+}
+
+enum HoldType {
+	CRIMP("crimp")
+    SLOPER("sloper")
+    JUG("jug")
+    PINCH("pinch")
+    FOOTHOLD("foothold")
+}
+
+enum Difficulty {
+	EASY("easy")
+    MEDIUM("medium")
+    HARD("hard")
+}
+
+entity Boulder {
+    name String required
+    grade Integer required min(0)
+    note String
+    slope Integer required min(0) max(90)
+}
+
+entity Climb {
+	attempts Integer min(0)
+    topDate Instant
+    rate Integer min(1) max(5)
+    note String
+    isTop Boolean
+}
+
+relationship ManyToOne {
+	Hold{wall(name)} to Wall{hold}
+    Hold{boulder(name)} to Boulder{hold}
+    Climb{boulder(name)} to Boulder{climb}
+    Climb{climbedBy(login) required} to User with builtInEntity
+}
+
+relationship ManyToMany {
+    Boulder{wall} to Wall{boulder}
+}
