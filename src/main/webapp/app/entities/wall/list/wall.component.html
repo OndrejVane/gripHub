@@ -75,6 +75,20 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
+            <th scope="col" jhiSortBy="rows">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.wall.rows">Rows</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="columns">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.wall.columns">Columns</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
             <th scope="col" jhiSortBy="photo">
               <div class="d-flex">
                 <span jhiTranslate="gripHubApp.wall.photo">Photo</span>
@@ -96,6 +110,8 @@
               <td>{{ wall.width }}</td>
               <td>{{ wall.minSlope }}</td>
               <td>{{ wall.maxSlope }}</td>
+              <td>{{ wall.rows }}</td>
+              <td>{{ wall.columns }}</td>
               <td>
                 @if (wall.photo) {
                   <a (click)="openFile(wall.photo, wall.photoContentType)">

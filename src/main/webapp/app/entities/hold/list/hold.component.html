@@ -1,0 +1,143 @@
+<div>
+  <h2 id="page-heading" data-cy="HoldHeading">
+    <span jhiTranslate="gripHubApp.hold.home.title">Holds</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="gripHubApp.hold.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-hold"
+        [routerLink]="['/hold/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gripHubApp.hold.home.createLabel">Create a new Hold</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (holds().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="gripHubApp.hold.home.notFound">No Holds found</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="photoCoordinatesX">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.hold.photoCoordinatesX">Photo Coordinates X</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="photoCoordinatesY">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.hold.photoCoordinatesY">Photo Coordinates Y</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="column">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.hold.column">Column</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="row">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.hold.row">Row</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="holdType">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.hold.holdType">Hold Type</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="holdDifficulty">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.hold.holdDifficulty">Hold Difficulty</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="wall.name">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.hold.wall">Wall</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (hold of holds(); track trackId(hold)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/hold', hold.id, 'view']">{{ hold.id }}</a>
+              </td>
+              <td>{{ hold.photoCoordinatesX }}</td>
+              <td>{{ hold.photoCoordinatesY }}</td>
+              <td>{{ hold.column }}</td>
+              <td>{{ hold.row }}</td>
+              <td [jhiTranslate]="'gripHubApp.HoldType.' + (hold.holdType ?? 'null')">
+                {{
+                  { null: '', CRIMP: 'crimp', SLOPER: 'sloper', JUG: 'jug', PINCH: 'pinch', FOOTHOLD: 'foothold' }[hold.holdType ?? 'null']
+                }}
+              </td>
+              <td [jhiTranslate]="'gripHubApp.Difficulty.' + (hold.holdDifficulty ?? 'null')">
+                {{ { null: '', EASY: 'easy', MEDIUM: 'medium', HARD: 'hard' }[hold.holdDifficulty ?? 'null'] }}
+              </td>
+              <td>
+                @if (hold.wall) {
+                  <div>
+                    <a [routerLink]="['/wall', hold.wall.id, 'view']">{{ hold.wall.name }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/hold', hold.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a [routerLink]="['/hold', hold.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(hold)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

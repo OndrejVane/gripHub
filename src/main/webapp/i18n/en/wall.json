@@ -23,7 +23,10 @@
       "width": "Width",
       "minSlope": "Min Slope",
       "maxSlope": "Max Slope",
-      "photo": "Photo"
+      "rows": "Rows",
+      "columns": "Columns",
+      "photo": "Photo",
+      "hold": "Hold"
     }
   }
 }

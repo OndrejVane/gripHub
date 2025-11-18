@@ -23,6 +23,8 @@ type WallFormGroupContent = {
   width: FormControl<IWall['width']>;
   minSlope: FormControl<IWall['minSlope']>;
   maxSlope: FormControl<IWall['maxSlope']>;
+  rows: FormControl<IWall['rows']>;
+  columns: FormControl<IWall['columns']>;
   photo: FormControl<IWall['photo']>;
   photoContentType: FormControl<IWall['photoContentType']>;
 };
@@ -58,6 +60,12 @@ export class WallFormService {
       }),
       maxSlope: new FormControl(wallRawValue.maxSlope, {
         validators: [Validators.required, Validators.min(0), Validators.max(90)],
+      }),
+      rows: new FormControl(wallRawValue.rows, {
+        validators: [Validators.required],
+      }),
+      columns: new FormControl(wallRawValue.columns, {
+        validators: [Validators.required],
       }),
       photo: new FormControl(wallRawValue.photo, {
         validators: [Validators.required],

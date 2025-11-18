@@ -36,12 +36,30 @@
       "fieldValidateRulesMin": "0"
     },
     {
+      "fieldName": "rows",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "columns",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "photo",
       "fieldType": "ImageBlob",
       "fieldValidateRules": ["required"]
     }
   ],
   "name": "Wall",
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "hold",
+      "otherEntityRelationshipName": "wall",
+      "relationshipName": "hold",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    }
+  ],
   "searchEngine": "no"
 }

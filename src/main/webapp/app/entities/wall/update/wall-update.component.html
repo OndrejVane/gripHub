@@ -131,6 +131,41 @@
           }
         </div>
 
+        @let rowsRef = editForm.get('rows')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_rows" jhiTranslate="gripHubApp.wall.rows">Rows</label>
+          <input type="number" class="form-control" name="rows" id="field_rows" data-cy="rows" formControlName="rows" />
+          @if (rowsRef.invalid && (rowsRef.dirty || rowsRef.touched)) {
+            <div>
+              @if (editForm.get('rows')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('rows')?.errors?.number" jhiTranslate="entity.validation.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let columnsRef = editForm.get('columns')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_columns" jhiTranslate="gripHubApp.wall.columns">Columns</label>
+          <input type="number" class="form-control" name="columns" id="field_columns" data-cy="columns" formControlName="columns" />
+          @if (columnsRef.invalid && (columnsRef.dirty || columnsRef.touched)) {
+            <div>
+              @if (editForm.get('columns')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('columns')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
         @let photoRef = editForm.get('photo')!;
         <div class="mb-3">
           <label class="form-label" for="field_photo" jhiTranslate="gripHubApp.wall.photo">Photo</label>

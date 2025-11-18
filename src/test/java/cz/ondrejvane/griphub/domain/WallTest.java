@@ -1,9 +1,12 @@
 package cz.ondrejvane.griphub.domain;
 
+import static cz.ondrejvane.griphub.domain.HoldTestSamples.*;
 import static cz.ondrejvane.griphub.domain.WallTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import cz.ondrejvane.griphub.web.rest.TestUtil;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 class WallTest {
@@ -20,5 +23,27 @@ class WallTest {
 
         wall2 = getWallSample2();
         assertThat(wall1).isNotEqualTo(wall2);
+    }
+
+    @Test
+    void holdTest() {
+        Wall wall = getWallRandomSampleGenerator();
+        Hold holdBack = getHoldRandomSampleGenerator();
+
+        wall.addHold(holdBack);
+        assertThat(wall.getHolds()).containsOnly(holdBack);
+        assertThat(holdBack.getWall()).isEqualTo(wall);
+
+        wall.removeHold(holdBack);
+        assertThat(wall.getHolds()).doesNotContain(holdBack);
+        assertThat(holdBack.getWall()).isNull();
+
+        wall.holds(new HashSet<>(Set.of(holdBack)));
+        assertThat(wall.getHolds()).containsOnly(holdBack);
+        assertThat(holdBack.getWall()).isEqualTo(wall);
+
+        wall.setHolds(new HashSet<>());
+        assertThat(wall.getHolds()).doesNotContain(holdBack);
+        assertThat(holdBack.getWall()).isNull();
     }
 }

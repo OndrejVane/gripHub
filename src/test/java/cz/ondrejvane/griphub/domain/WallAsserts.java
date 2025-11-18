@@ -52,6 +52,8 @@ public class WallAsserts {
             .satisfies(a -> assertThat(a.getWidth()).as("check width").isEqualTo(expected.getWidth()))
             .satisfies(a -> assertThat(a.getMinSlope()).as("check minSlope").isEqualTo(expected.getMinSlope()))
             .satisfies(a -> assertThat(a.getMaxSlope()).as("check maxSlope").isEqualTo(expected.getMaxSlope()))
+            .satisfies(a -> assertThat(a.getRows()).as("check rows").isEqualTo(expected.getRows()))
+            .satisfies(a -> assertThat(a.getColumns()).as("check columns").isEqualTo(expected.getColumns()))
             .satisfies(a -> assertThat(a.getPhoto()).as("check photo").isEqualTo(expected.getPhoto()))
             .satisfies(a -> assertThat(a.getPhotoContentType()).as("check photo contenty type").isEqualTo(expected.getPhotoContentType()));
     }

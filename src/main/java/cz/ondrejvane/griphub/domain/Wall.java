@@ -1,8 +1,11 @@
 package cz.ondrejvane.griphub.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -49,6 +52,14 @@ public class Wall implements Serializable {
     @Column(name = "max_slope", nullable = false)
     private Integer maxSlope;
 
+    @NotNull
+    @Column(name = "rows", nullable = false)
+    private Integer rows;
+
+    @NotNull
+    @Column(name = "columns", nullable = false)
+    private Integer columns;
+
     @Lob
     @Column(name = "photo", nullable = false)
     private byte[] photo;
@@ -56,6 +67,11 @@ public class Wall implements Serializable {
     @NotNull
     @Column(name = "photo_content_type", nullable = false)
     private String photoContentType;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "wall")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "wall" }, allowSetters = true)
+    private Set<Hold> holds = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -137,6 +153,32 @@ public class Wall implements Serializable {
         this.maxSlope = maxSlope;
     }
 
+    public Integer getRows() {
+        return this.rows;
+    }
+
+    public Wall rows(Integer rows) {
+        this.setRows(rows);
+        return this;
+    }
+
+    public void setRows(Integer rows) {
+        this.rows = rows;
+    }
+
+    public Integer getColumns() {
+        return this.columns;
+    }
+
+    public Wall columns(Integer columns) {
+        this.setColumns(columns);
+        return this;
+    }
+
+    public void setColumns(Integer columns) {
+        this.columns = columns;
+    }
+
     public byte[] getPhoto() {
         return this.photo;
     }
@@ -161,6 +203,37 @@ public class Wall implements Serializable {
 
     public void setPhotoContentType(String photoContentType) {
         this.photoContentType = photoContentType;
+    }
+
+    public Set<Hold> getHolds() {
+        return this.holds;
+    }
+
+    public void setHolds(Set<Hold> holds) {
+        if (this.holds != null) {
+            this.holds.forEach(i -> i.setWall(null));
+        }
+        if (holds != null) {
+            holds.forEach(i -> i.setWall(this));
+        }
+        this.holds = holds;
+    }
+
+    public Wall holds(Set<Hold> holds) {
+        this.setHolds(holds);
+        return this;
+    }
+
+    public Wall addHold(Hold hold) {
+        this.holds.add(hold);
+        hold.setWall(this);
+        return this;
+    }
+
+    public Wall removeHold(Hold hold) {
+        this.holds.remove(hold);
+        hold.setWall(null);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -192,6 +265,8 @@ public class Wall implements Serializable {
             ", width=" + getWidth() +
             ", minSlope=" + getMinSlope() +
             ", maxSlope=" + getMaxSlope() +
+            ", rows=" + getRows() +
+            ", columns=" + getColumns() +
             ", photo='" + getPhoto() + "'" +
             ", photoContentType='" + getPhotoContentType() + "'" +
             "}";

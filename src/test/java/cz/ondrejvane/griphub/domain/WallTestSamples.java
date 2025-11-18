@@ -12,11 +12,11 @@ public class WallTestSamples {
     private static final AtomicInteger intCount = new AtomicInteger(random.nextInt() + (2 * Short.MAX_VALUE));
 
     public static Wall getWallSample1() {
-        return new Wall().id(1L).name("name1").height(1).width(1).minSlope(1).maxSlope(1);
+        return new Wall().id(1L).name("name1").height(1).width(1).minSlope(1).maxSlope(1).rows(1).columns(1);
     }
 
     public static Wall getWallSample2() {
-        return new Wall().id(2L).name("name2").height(2).width(2).minSlope(2).maxSlope(2);
+        return new Wall().id(2L).name("name2").height(2).width(2).minSlope(2).maxSlope(2).rows(2).columns(2);
     }
 
     public static Wall getWallRandomSampleGenerator() {
@@ -26,6 +26,8 @@ public class WallTestSamples {
             .height(intCount.incrementAndGet())
             .width(intCount.incrementAndGet())
             .minSlope(intCount.incrementAndGet())
-            .maxSlope(intCount.incrementAndGet());
+            .maxSlope(intCount.incrementAndGet())
+            .rows(intCount.incrementAndGet())
+            .columns(intCount.incrementAndGet());
     }
 }

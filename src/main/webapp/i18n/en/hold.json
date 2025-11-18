@@ -1,0 +1,30 @@
+{
+  "gripHubApp": {
+    "hold": {
+      "home": {
+        "title": "Holds",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Hold",
+        "createOrEditLabel": "Create or edit a Hold",
+        "notFound": "No Holds found"
+      },
+      "created": "A new Hold is created with identifier {{ param }}",
+      "updated": "A Hold is updated with identifier {{ param }}",
+      "deleted": "A Hold is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Hold {{ id }}?"
+      },
+      "detail": {
+        "title": "Hold"
+      },
+      "id": "ID",
+      "photoCoordinatesX": "Photo Coordinates X",
+      "photoCoordinatesY": "Photo Coordinates Y",
+      "column": "Column",
+      "row": "Row",
+      "holdType": "Hold Type",
+      "holdDifficulty": "Hold Difficulty",
+      "wall": "Wall"
+    }
+  }
+}

@@ -25,6 +25,8 @@ describe('Wall Form Service', () => {
             width: expect.any(Object),
             minSlope: expect.any(Object),
             maxSlope: expect.any(Object),
+            rows: expect.any(Object),
+            columns: expect.any(Object),
             photo: expect.any(Object),
           }),
         );
@@ -41,6 +43,8 @@ describe('Wall Form Service', () => {
             width: expect.any(Object),
             minSlope: expect.any(Object),
             maxSlope: expect.any(Object),
+            rows: expect.any(Object),
+            columns: expect.any(Object),
             photo: expect.any(Object),
           }),
         );

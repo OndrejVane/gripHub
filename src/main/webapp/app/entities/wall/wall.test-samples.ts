@@ -7,6 +7,8 @@ export const sampleWithRequiredData: IWall = {
   width: 11996,
   minSlope: 15,
   maxSlope: 36,
+  rows: 22632,
+  columns: 10214,
   photo: '../fake-data/blob/hipster.png',
   photoContentType: 'unknown',
 };
@@ -18,6 +20,8 @@ export const sampleWithPartialData: IWall = {
   width: 12499,
   minSlope: 77,
   maxSlope: 22,
+  rows: 30485,
+  columns: 25254,
   photo: '../fake-data/blob/hipster.png',
   photoContentType: 'unknown',
 };
@@ -29,6 +33,8 @@ export const sampleWithFullData: IWall = {
   width: 29405,
   minSlope: 55,
   maxSlope: 5,
+  rows: 23099,
+  columns: 30586,
   photo: '../fake-data/blob/hipster.png',
   photoContentType: 'unknown',
 };
@@ -39,6 +45,8 @@ export const sampleWithNewData: NewWall = {
   width: 644,
   minSlope: 43,
   maxSlope: 2,
+  rows: 19071,
+  columns: 14784,
   photo: '../fake-data/blob/hipster.png',
   photoContentType: 'unknown',
   id: null,

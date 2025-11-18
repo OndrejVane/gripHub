@@ -29,6 +29,12 @@
             <column name="max_slope" type="integer">
                 <constraints nullable="false" />
             </column>
+            <column name="rows" type="integer">
+                <constraints nullable="false" />
+            </column>
+            <column name="columns" type="integer">
+                <constraints nullable="false" />
+            </column>
             <column name="photo" type="${blobType}">
                 <constraints nullable="false" />
             </column>
@@ -61,6 +67,8 @@
             <column name="width" type="numeric"/>
             <column name="min_slope" type="numeric"/>
             <column name="max_slope" type="numeric"/>
+            <column name="rows" type="numeric"/>
+            <column name="columns" type="numeric"/>
             <column name="photo" type="blob"/>
             <column name="photo_content_type" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->

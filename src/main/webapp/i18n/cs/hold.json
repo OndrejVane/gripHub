@@ -1,0 +1,30 @@
+{
+  "gripHubApp": {
+    "hold": {
+      "home": {
+        "title": "Holds",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Vytvořit Hold",
+        "createOrEditLabel": "Vytvořit nebo upravit Hold",
+        "notFound": "No Holds found"
+      },
+      "created": "Byl vytvořen potomek entity Hold s identifikátorem {{ param }}",
+      "updated": "Potomek entity Hold s identifikátorem {{ param }} byl upravený.",
+      "deleted": "Potomek entity Hold s identifikátorem {{ param }} bol smazaný.",
+      "delete": {
+        "question": "Jste si jisti, že chcete smazat Hold {{ id }}?"
+      },
+      "detail": {
+        "title": "Hold"
+      },
+      "id": "ID",
+      "photoCoordinatesX": "Photo Coordinates X",
+      "photoCoordinatesY": "Photo Coordinates Y",
+      "column": "Column",
+      "row": "Row",
+      "holdType": "Hold Type",
+      "holdDifficulty": "Hold Difficulty",
+      "wall": "Wall"
+    }
+  }
+}

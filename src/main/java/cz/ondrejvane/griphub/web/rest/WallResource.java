@@ -136,6 +136,12 @@ public class WallResource {
                 if (wall.getMaxSlope() != null) {
                     existingWall.setMaxSlope(wall.getMaxSlope());
                 }
+                if (wall.getRows() != null) {
+                    existingWall.setRows(wall.getRows());
+                }
+                if (wall.getColumns() != null) {
+                    existingWall.setColumns(wall.getColumns());
+                }
                 if (wall.getPhoto() != null) {
                     existingWall.setPhoto(wall.getPhoto());
                 }

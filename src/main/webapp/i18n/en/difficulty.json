@@ -1,0 +1,10 @@
+{
+  "gripHubApp": {
+    "Difficulty": {
+      "null": "",
+      "EASY": "easy",
+      "MEDIUM": "medium",
+      "HARD": "hard"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "annotations": {
+    "changelogDate": "20251118192953"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "photoCoordinatesX",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "photoCoordinatesY",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "column",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "row",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "holdType",
+      "fieldType": "HoldType",
+      "fieldValues": "CRIMP (crimp),SLOPER (sloper),JUG (jug),PINCH (pinch),FOOTHOLD (foothold)"
+    },
+    {
+      "fieldName": "holdDifficulty",
+      "fieldType": "Difficulty",
+      "fieldValues": "EASY (easy),MEDIUM (medium),HARD (hard)"
+    }
+  ],
+  "name": "Hold",
+  "relationships": [
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "wall",
+      "otherEntityRelationshipName": "hold",
+      "relationshipName": "wall",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

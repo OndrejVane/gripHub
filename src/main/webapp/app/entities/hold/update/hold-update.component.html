@@ -1,0 +1,110 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-hold-heading" data-cy="HoldCreateUpdateHeading" jhiTranslate="gripHubApp.hold.home.createOrEditLabel">
+        Create or edit a Hold
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="gripHubApp.hold.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_photoCoordinatesX" jhiTranslate="gripHubApp.hold.photoCoordinatesX"
+            >Photo Coordinates X</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="photoCoordinatesX"
+            id="field_photoCoordinatesX"
+            data-cy="photoCoordinatesX"
+            formControlName="photoCoordinatesX"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_photoCoordinatesY" jhiTranslate="gripHubApp.hold.photoCoordinatesY"
+            >Photo Coordinates Y</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="photoCoordinatesY"
+            id="field_photoCoordinatesY"
+            data-cy="photoCoordinatesY"
+            formControlName="photoCoordinatesY"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_column" jhiTranslate="gripHubApp.hold.column">Column</label>
+          <input type="number" class="form-control" name="column" id="field_column" data-cy="column" formControlName="column" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_row" jhiTranslate="gripHubApp.hold.row">Row</label>
+          <input type="number" class="form-control" name="row" id="field_row" data-cy="row" formControlName="row" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_holdType" jhiTranslate="gripHubApp.hold.holdType">Hold Type</label>
+          <select class="form-control" name="holdType" formControlName="holdType" id="field_holdType" data-cy="holdType">
+            <option [ngValue]="null">{{ 'gripHubApp.HoldType.null' | translate }}</option>
+            @for (holdType of holdTypeValues; track $index) {
+              <option [value]="holdType">{{ 'gripHubApp.HoldType.' + holdType | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_holdDifficulty" jhiTranslate="gripHubApp.hold.holdDifficulty">Hold Difficulty</label>
+          <select
+            class="form-control"
+            name="holdDifficulty"
+            formControlName="holdDifficulty"
+            id="field_holdDifficulty"
+            data-cy="holdDifficulty"
+          >
+            <option [ngValue]="null">{{ 'gripHubApp.Difficulty.null' | translate }}</option>
+            @for (difficulty of difficultyValues; track $index) {
+              <option [value]="difficulty">{{ 'gripHubApp.Difficulty.' + difficulty | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_wall" jhiTranslate="gripHubApp.hold.wall">Wall</label>
+          <select class="form-control" id="field_wall" data-cy="wall" name="wall" formControlName="wall" [compareWith]="compareWall">
+            <option [ngValue]="null"></option>
+            @for (wallOption of wallsSharedCollection; track $index) {
+              <option [ngValue]="wallOption">{{ wallOption.name }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

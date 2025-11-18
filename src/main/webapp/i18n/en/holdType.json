@@ -1,0 +1,12 @@
+{
+  "gripHubApp": {
+    "HoldType": {
+      "null": "",
+      "CRIMP": "crimp",
+      "SLOPER": "sloper",
+      "JUG": "jug",
+      "PINCH": "pinch",
+      "FOOTHOLD": "foothold"
+    }
+  }
+}

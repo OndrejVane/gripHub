@@ -5,6 +5,8 @@ export interface IWall {
   width?: number | null;
   minSlope?: number | null;
   maxSlope?: number | null;
+  rows?: number | null;
+  columns?: number | null;
   photo?: string | null;
   photoContentType?: string | null;
 }

@@ -49,6 +49,12 @@ class WallResourceIT {
     private static final Integer DEFAULT_MAX_SLOPE = 0;
     private static final Integer UPDATED_MAX_SLOPE = 1;
 
+    private static final Integer DEFAULT_ROWS = 1;
+    private static final Integer UPDATED_ROWS = 2;
+
+    private static final Integer DEFAULT_COLUMNS = 1;
+    private static final Integer UPDATED_COLUMNS = 2;
+
     private static final byte[] DEFAULT_PHOTO = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_PHOTO = TestUtil.createByteArray(1, "1");
     private static final String DEFAULT_PHOTO_CONTENT_TYPE = "image/jpg";
@@ -89,6 +95,8 @@ class WallResourceIT {
             .width(DEFAULT_WIDTH)
             .minSlope(DEFAULT_MIN_SLOPE)
             .maxSlope(DEFAULT_MAX_SLOPE)
+            .rows(DEFAULT_ROWS)
+            .columns(DEFAULT_COLUMNS)
             .photo(DEFAULT_PHOTO)
             .photoContentType(DEFAULT_PHOTO_CONTENT_TYPE);
     }
@@ -106,6 +114,8 @@ class WallResourceIT {
             .width(UPDATED_WIDTH)
             .minSlope(UPDATED_MIN_SLOPE)
             .maxSlope(UPDATED_MAX_SLOPE)
+            .rows(UPDATED_ROWS)
+            .columns(UPDATED_COLUMNS)
             .photo(UPDATED_PHOTO)
             .photoContentType(UPDATED_PHOTO_CONTENT_TYPE);
     }
@@ -244,6 +254,38 @@ class WallResourceIT {
 
     @Test
     @Transactional
+    void checkRowsIsRequired() throws Exception {
+        long databaseSizeBeforeTest = getRepositoryCount();
+        // set the field null
+        wall.setRows(null);
+
+        // Create the Wall, which fails.
+
+        restWallMockMvc
+            .perform(post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(wall)))
+            .andExpect(status().isBadRequest());
+
+        assertSameRepositoryCount(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkColumnsIsRequired() throws Exception {
+        long databaseSizeBeforeTest = getRepositoryCount();
+        // set the field null
+        wall.setColumns(null);
+
+        // Create the Wall, which fails.
+
+        restWallMockMvc
+            .perform(post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(wall)))
+            .andExpect(status().isBadRequest());
+
+        assertSameRepositoryCount(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllWalls() throws Exception {
         // Initialize the database
         insertedWall = wallRepository.saveAndFlush(wall);
@@ -259,6 +301,8 @@ class WallResourceIT {
             .andExpect(jsonPath("$.[*].width").value(hasItem(DEFAULT_WIDTH)))
             .andExpect(jsonPath("$.[*].minSlope").value(hasItem(DEFAULT_MIN_SLOPE)))
             .andExpect(jsonPath("$.[*].maxSlope").value(hasItem(DEFAULT_MAX_SLOPE)))
+            .andExpect(jsonPath("$.[*].rows").value(hasItem(DEFAULT_ROWS)))
+            .andExpect(jsonPath("$.[*].columns").value(hasItem(DEFAULT_COLUMNS)))
             .andExpect(jsonPath("$.[*].photoContentType").value(hasItem(DEFAULT_PHOTO_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].photo").value(hasItem(Base64.getEncoder().encodeToString(DEFAULT_PHOTO))));
     }
@@ -280,6 +324,8 @@ class WallResourceIT {
             .andExpect(jsonPath("$.width").value(DEFAULT_WIDTH))
             .andExpect(jsonPath("$.minSlope").value(DEFAULT_MIN_SLOPE))
             .andExpect(jsonPath("$.maxSlope").value(DEFAULT_MAX_SLOPE))
+            .andExpect(jsonPath("$.rows").value(DEFAULT_ROWS))
+            .andExpect(jsonPath("$.columns").value(DEFAULT_COLUMNS))
             .andExpect(jsonPath("$.photoContentType").value(DEFAULT_PHOTO_CONTENT_TYPE))
             .andExpect(jsonPath("$.photo").value(Base64.getEncoder().encodeToString(DEFAULT_PHOTO)));
     }
@@ -309,6 +355,8 @@ class WallResourceIT {
             .width(UPDATED_WIDTH)
             .minSlope(UPDATED_MIN_SLOPE)
             .maxSlope(UPDATED_MAX_SLOPE)
+            .rows(UPDATED_ROWS)
+            .columns(UPDATED_COLUMNS)
             .photo(UPDATED_PHOTO)
             .photoContentType(UPDATED_PHOTO_CONTENT_TYPE);
 
@@ -394,8 +442,8 @@ class WallResourceIT {
         partialUpdatedWall.setId(wall.getId());
 
         partialUpdatedWall
-            .height(UPDATED_HEIGHT)
-            .minSlope(UPDATED_MIN_SLOPE)
+            .maxSlope(UPDATED_MAX_SLOPE)
+            .columns(UPDATED_COLUMNS)
             .photo(UPDATED_PHOTO)
             .photoContentType(UPDATED_PHOTO_CONTENT_TYPE);
 
@@ -432,6 +480,8 @@ class WallResourceIT {
             .width(UPDATED_WIDTH)
             .minSlope(UPDATED_MIN_SLOPE)
             .maxSlope(UPDATED_MAX_SLOPE)
+            .rows(UPDATED_ROWS)
+            .columns(UPDATED_COLUMNS)
             .photo(UPDATED_PHOTO)
             .photoContentType(UPDATED_PHOTO_CONTENT_TYPE);
 

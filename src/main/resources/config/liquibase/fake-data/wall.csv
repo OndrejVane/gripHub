@@ -1,11 +1,11 @@
-id;name;height;width;min_slope;max_slope;photo;photo_content_type
-1;at vaguely brave;21970;9484;40;38;../fake-data/blob/hipster.png;image/png
-2;greedily untimely what;17367;31687;13;18;../fake-data/blob/hipster.png;image/png
-3;inasmuch dull;5893;2529;82;72;../fake-data/blob/hipster.png;image/png
-4;unsung after underneath;8882;2464;10;24;../fake-data/blob/hipster.png;image/png
-5;duh;21999;6111;68;71;../fake-data/blob/hipster.png;image/png
-6;robust uh-huh fledgling;18740;23705;16;31;../fake-data/blob/hipster.png;image/png
-7;whoever around;25937;9346;41;27;../fake-data/blob/hipster.png;image/png
-8;aw pish;10029;20923;52;27;../fake-data/blob/hipster.png;image/png
-9;harangue bright;12093;4365;77;48;../fake-data/blob/hipster.png;image/png
-10;after naughty;12140;25070;66;52;../fake-data/blob/hipster.png;image/png
+id;name;height;width;min_slope;max_slope;rows;columns;photo;photo_content_type
+1;at vaguely brave;21970;9484;40;38;28201;24540;../fake-data/blob/hipster.png;image/png
+2;given;19319;26744;40;75;29691;1966;../fake-data/blob/hipster.png;image/png
+3;vicinity some tune;27322;24785;19;16;2529;29640;../fake-data/blob/hipster.png;image/png
+4;worthy like cinch;28994;8882;6;10;8831;1676;../fake-data/blob/hipster.png;image/png
+5;pillow selfish unnaturally;10931;32611;23;73;16479;9887;../fake-data/blob/hipster.png;image/png
+6;convoke huzzah;29625;30637;29;65;19727;221;../fake-data/blob/hipster.png;image/png
+7;instead aw pish;10029;20923;52;27;20562;16673;../fake-data/blob/hipster.png;image/png
+8;brr correctly cap;4692;18637;0;60;5851;32144;../fake-data/blob/hipster.png;image/png
+9;orange via;19237;9044;33;72;30315;14752;../fake-data/blob/hipster.png;image/png
+10;considering who publication;15689;7870;30;66;20931;14266;../fake-data/blob/hipster.png;image/png
