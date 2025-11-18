@@ -149,12 +149,17 @@ public class HoldResource {
     /**
      * {@code GET  /holds} : get all the holds.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of holds in body.
      */
     @GetMapping("")
-    public List<Hold> getAllHolds() {
+    public List<Hold> getAllHolds(@RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload) {
         LOG.debug("REST request to get all Holds");
-        return holdRepository.findAll();
+        if (eagerload) {
+            return holdRepository.findAllWithEagerRelationships();
+        } else {
+            return holdRepository.findAll();
+        }
     }
 
     /**
@@ -166,7 +171,7 @@ public class HoldResource {
     @GetMapping("/{id}")
     public ResponseEntity<Hold> getHold(@PathVariable("id") Long id) {
         LOG.debug("REST request to get Hold : {}", id);
-        Optional<Hold> hold = holdRepository.findById(id);
+        Optional<Hold> hold = holdRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(hold);
     }
 

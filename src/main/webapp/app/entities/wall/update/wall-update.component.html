@@ -214,6 +214,23 @@
             </div>
           }
         </div>
+
+        <div class="mb-3">
+          <label for="field_boulders" jhiTranslate="gripHubApp.wall.boulder">Boulder</label>
+          <select
+            class="form-control"
+            id="field_boulders"
+            data-cy="boulder"
+            multiple
+            name="boulders"
+            formControlName="boulders"
+            [compareWith]="compareBoulder"
+          >
+            @for (boulderOption of bouldersSharedCollection; track $index) {
+              <option [ngValue]="boulderOption">{{ boulderOption.id }}</option>
+            }
+          </select>
+        </div>
       </div>
 
       <div>

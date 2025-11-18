@@ -47,7 +47,7 @@
           <dd>
             @if (hold()!.wall) {
               <div>
-                <a [routerLink]="['/wall', hold()!.wall?.id, 'view']">{{ holdRef.wall?.id }}</a>
+                <a [routerLink]="['/wall', hold()!.wall?.id, 'view']">{{ holdRef.wall?.name }}</a>
               </div>
             }
           </dd>
@@ -55,7 +55,7 @@
           <dd>
             @if (hold()!.boulder) {
               <div>
-                <a [routerLink]="['/boulder', hold()!.boulder?.id, 'view']">{{ holdRef.boulder?.id }}</a>
+                <a [routerLink]="['/boulder', hold()!.boulder?.id, 'view']">{{ holdRef.boulder?.name }}</a>
               </div>
             }
           </dd>

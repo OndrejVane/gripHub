@@ -33,10 +33,11 @@
           </dd>
           <dt><span jhiTranslate="gripHubApp.boulder.wall">Wall</span></dt>
           <dd>
-            @if (boulder()!.wall) {
-              <div>
-                <a [routerLink]="['/wall', boulder()!.wall?.id, 'view']">{{ boulderRef.wall?.id }}</a>
-              </div>
+            @for (wall of boulderRef.walls; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/wall', wall.id, 'view']">{{ wall?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
             }
           </dd>
         </dl>

@@ -1,0 +1,148 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-climb-heading" data-cy="ClimbCreateUpdateHeading" jhiTranslate="gripHubApp.climb.home.createOrEditLabel">
+        Create or edit a Climb
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="gripHubApp.climb.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let attemptsRef = editForm.get('attempts')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_attempts" jhiTranslate="gripHubApp.climb.attempts">Attempts</label>
+          <input type="number" class="form-control" name="attempts" id="field_attempts" data-cy="attempts" formControlName="attempts" />
+          @if (attemptsRef.invalid && (attemptsRef.dirty || attemptsRef.touched)) {
+            <div>
+              @if (editForm.get('attempts')?.errors?.min) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.min" [translateValues]="{ min: '0' }"
+                  >This field should be at least 0.</small
+                >
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('attempts')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_topDate" jhiTranslate="gripHubApp.climb.topDate">Top Date</label>
+          <div class="d-flex">
+            <input
+              id="field_topDate"
+              data-cy="topDate"
+              type="datetime-local"
+              class="form-control"
+              name="topDate"
+              formControlName="topDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        @let rateRef = editForm.get('rate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_rate" jhiTranslate="gripHubApp.climb.rate">Rate</label>
+          <input type="number" class="form-control" name="rate" id="field_rate" data-cy="rate" formControlName="rate" />
+          @if (rateRef.invalid && (rateRef.dirty || rateRef.touched)) {
+            <div>
+              @if (editForm.get('rate')?.errors?.min) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.min" [translateValues]="{ min: '1' }"
+                  >This field should be at least 1.</small
+                >
+              }
+              @if (editForm.get('rate')?.errors?.max) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.max" [translateValues]="{ max: '5' }"
+                  >This field cannot be more than 5.</small
+                >
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('rate')?.errors?.number" jhiTranslate="entity.validation.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_note" jhiTranslate="gripHubApp.climb.note">Note</label>
+          <input type="text" class="form-control" name="note" id="field_note" data-cy="note" formControlName="note" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_isTop" jhiTranslate="gripHubApp.climb.isTop">Is Top</label>
+          <input type="checkbox" class="form-check" name="isTop" id="field_isTop" data-cy="isTop" formControlName="isTop" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_boulder" jhiTranslate="gripHubApp.climb.boulder">Boulder</label>
+          <select
+            class="form-control"
+            id="field_boulder"
+            data-cy="boulder"
+            name="boulder"
+            formControlName="boulder"
+            [compareWith]="compareBoulder"
+          >
+            <option [ngValue]="null"></option>
+            @for (boulderOption of bouldersSharedCollection; track $index) {
+              <option [ngValue]="boulderOption">{{ boulderOption.name }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_climbedBy" jhiTranslate="gripHubApp.climb.climbedBy">Climbed By</label>
+          <select
+            class="form-control"
+            id="field_climbedBy"
+            data-cy="climbedBy"
+            name="climbedBy"
+            formControlName="climbedBy"
+            [compareWith]="compareUser"
+          >
+            @if (!editForm.get('climbedBy')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (userOption of usersSharedCollection; track $index) {
+              <option [ngValue]="userOption">{{ userOption.login }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['climbedBy'])!.invalid && (editForm.get(['climbedBy'])!.dirty || editForm.get(['climbedBy'])!.touched)) {
+          <div>
+            @if (editForm.get(['climbedBy'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

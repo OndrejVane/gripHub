@@ -15,10 +15,10 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="grade" type="integer">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="note" type="varchar(255)">
                 <constraints nullable="true" />
@@ -26,11 +26,22 @@
             <column name="slope" type="integer">
                 <constraints nullable="false" />
             </column>
-            <column name="wall_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
+    </changeSet>
+
+    <changeSet id="20251118194957-1-relations" author="jhipster">
+
+        <createTable tableName="rel_boulder__wall">
+            <column name="wall_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="boulder_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="boulder_id, wall_id" tableName="rel_boulder__wall"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

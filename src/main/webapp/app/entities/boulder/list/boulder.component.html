@@ -88,10 +88,11 @@
               <td>{{ boulder.note }}</td>
               <td>{{ boulder.slope }}</td>
               <td>
-                @if (boulder.wall) {
-                  <div>
-                    <a [routerLink]="['/wall', boulder.wall.id, 'view']">{{ boulder.wall.id }}</a>
-                  </div>
+                @for (wall of boulder.walls; track $index; let last = $last) {
+                  <span>
+                    <a class="form-control-static" [routerLink]="['/wall', wall.id, 'view']">{{ wall.id }}</a
+                    >{{ last ? '' : ', ' }}
+                  </span>
                 }
               </td>
               <td class="text-end">

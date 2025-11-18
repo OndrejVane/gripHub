@@ -82,14 +82,14 @@ export class BoulderUpdateComponent implements OnInit {
     this.boulder = boulder;
     this.boulderFormService.resetForm(this.editForm, boulder);
 
-    this.wallsSharedCollection = this.wallService.addWallToCollectionIfMissing<IWall>(this.wallsSharedCollection, boulder.wall);
+    this.wallsSharedCollection = this.wallService.addWallToCollectionIfMissing<IWall>(this.wallsSharedCollection, ...(boulder.walls ?? []));
   }
 
   protected loadRelationshipsOptions(): void {
     this.wallService
       .query()
       .pipe(map((res: HttpResponse<IWall[]>) => res.body ?? []))
-      .pipe(map((walls: IWall[]) => this.wallService.addWallToCollectionIfMissing<IWall>(walls, this.boulder?.wall)))
+      .pipe(map((walls: IWall[]) => this.wallService.addWallToCollectionIfMissing<IWall>(walls, ...(this.boulder?.walls ?? []))))
       .subscribe((walls: IWall[]) => (this.wallsSharedCollection = walls));
   }
 }

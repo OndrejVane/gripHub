@@ -65,7 +65,7 @@
       "otherEntityRelationshipName": "wall",
       "relationshipName": "boulder",
       "relationshipSide": "right",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-many"
     }
   ],
   "searchEngine": "no"

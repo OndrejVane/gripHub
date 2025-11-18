@@ -6,7 +6,7 @@ export interface IBoulder {
   grade?: number | null;
   note?: string | null;
   slope?: number | null;
-  wall?: IWall | null;
+  walls?: IWall[] | null;
 }
 
 export type NewBoulder = Omit<IBoulder, 'id'> & { id: null };

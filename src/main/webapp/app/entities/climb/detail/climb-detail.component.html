@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (climb(); as climbRef) {
+      <div>
+        <h2 data-cy="climbDetailsHeading"><span jhiTranslate="gripHubApp.climb.detail.title">Climb</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ climbRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.climb.attempts">Attempts</span></dt>
+          <dd>
+            <span>{{ climbRef.attempts }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.climb.topDate">Top Date</span></dt>
+          <dd>
+            <span>{{ climbRef.topDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.climb.rate">Rate</span></dt>
+          <dd>
+            <span>{{ climbRef.rate }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.climb.note">Note</span></dt>
+          <dd>
+            <span>{{ climbRef.note }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.climb.isTop">Is Top</span></dt>
+          <dd>
+            <span>{{ climbRef.isTop }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.climb.boulder">Boulder</span></dt>
+          <dd>
+            @if (climb()!.boulder) {
+              <div>
+                <a [routerLink]="['/boulder', climb()!.boulder?.id, 'view']">{{ climbRef.boulder?.name }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.climb.climbedBy">Climbed By</span></dt>
+          <dd>
+            <span>{{ climbRef.climbedBy?.login }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/climb', climbRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

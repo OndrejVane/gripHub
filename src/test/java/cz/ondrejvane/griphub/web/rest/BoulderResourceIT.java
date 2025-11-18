@@ -4,6 +4,7 @@ import static cz.ondrejvane.griphub.domain.BoulderAsserts.*;
 import static cz.ondrejvane.griphub.web.rest.TestUtil.createUpdateProxyForBean;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -13,13 +14,19 @@ import cz.ondrejvane.griphub.IntegrationTest;
 import cz.ondrejvane.griphub.domain.Boulder;
 import cz.ondrejvane.griphub.repository.BoulderRepository;
 import jakarta.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link BoulderResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class BoulderResourceIT {
@@ -56,6 +64,9 @@ class BoulderResourceIT {
 
     @Autowired
     private BoulderRepository boulderRepository;
+
+    @Mock
+    private BoulderRepository boulderRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -141,6 +152,38 @@ class BoulderResourceIT {
 
     @Test
     @Transactional
+    void checkNameIsRequired() throws Exception {
+        long databaseSizeBeforeTest = getRepositoryCount();
+        // set the field null
+        boulder.setName(null);
+
+        // Create the Boulder, which fails.
+
+        restBoulderMockMvc
+            .perform(post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(boulder)))
+            .andExpect(status().isBadRequest());
+
+        assertSameRepositoryCount(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkGradeIsRequired() throws Exception {
+        long databaseSizeBeforeTest = getRepositoryCount();
+        // set the field null
+        boulder.setGrade(null);
+
+        // Create the Boulder, which fails.
+
+        restBoulderMockMvc
+            .perform(post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(boulder)))
+            .andExpect(status().isBadRequest());
+
+        assertSameRepositoryCount(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void checkSlopeIsRequired() throws Exception {
         long databaseSizeBeforeTest = getRepositoryCount();
         // set the field null
@@ -171,6 +214,23 @@ class BoulderResourceIT {
             .andExpect(jsonPath("$.[*].grade").value(hasItem(DEFAULT_GRADE)))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE)))
             .andExpect(jsonPath("$.[*].slope").value(hasItem(DEFAULT_SLOPE)));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllBouldersWithEagerRelationshipsIsEnabled() throws Exception {
+        when(boulderRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restBoulderMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(boulderRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllBouldersWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(boulderRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restBoulderMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(boulderRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -292,6 +352,8 @@ class BoulderResourceIT {
         // Update the boulder using partial update
         Boulder partialUpdatedBoulder = new Boulder();
         partialUpdatedBoulder.setId(boulder.getId());
+
+        partialUpdatedBoulder.grade(UPDATED_GRADE).slope(UPDATED_SLOPE);
 
         restBoulderMockMvc
             .perform(

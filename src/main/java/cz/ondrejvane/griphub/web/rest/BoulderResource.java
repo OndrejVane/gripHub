@@ -149,12 +149,17 @@ public class BoulderResource {
     /**
      * {@code GET  /boulders} : get all the boulders.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of boulders in body.
      */
     @GetMapping("")
-    public List<Boulder> getAllBoulders() {
+    public List<Boulder> getAllBoulders(@RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload) {
         LOG.debug("REST request to get all Boulders");
-        return boulderRepository.findAll();
+        if (eagerload) {
+            return boulderRepository.findAllWithEagerRelationships();
+        } else {
+            return boulderRepository.findAll();
+        }
     }
 
     /**
@@ -166,7 +171,7 @@ public class BoulderResource {
     @GetMapping("/{id}")
     public ResponseEntity<Boulder> getBoulder(@PathVariable("id") Long id) {
         LOG.debug("REST request to get Boulder : {}", id);
-        Optional<Boulder> boulder = boulderRepository.findById(id);
+        Optional<Boulder> boulder = boulderRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(boulder);
     }
 

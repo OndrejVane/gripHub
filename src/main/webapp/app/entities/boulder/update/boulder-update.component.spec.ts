@@ -49,12 +49,12 @@ describe('Boulder Management Update Component', () => {
   describe('ngOnInit', () => {
     it('should call Wall query and add missing value', () => {
       const boulder: IBoulder = { id: 3829 };
-      const wall: IWall = { id: 23247 };
-      boulder.wall = wall;
+      const walls: IWall[] = [{ id: 23247 }];
+      boulder.walls = walls;
 
       const wallCollection: IWall[] = [{ id: 23247 }];
       jest.spyOn(wallService, 'query').mockReturnValue(of(new HttpResponse({ body: wallCollection })));
-      const additionalWalls = [wall];
+      const additionalWalls = [...walls];
       const expectedCollection: IWall[] = [...additionalWalls, ...wallCollection];
       jest.spyOn(wallService, 'addWallToCollectionIfMissing').mockReturnValue(expectedCollection);
 
@@ -72,7 +72,7 @@ describe('Boulder Management Update Component', () => {
     it('should update editForm', () => {
       const boulder: IBoulder = { id: 3829 };
       const wall: IWall = { id: 23247 };
-      boulder.wall = wall;
+      boulder.walls = [wall];
 
       activatedRoute.data = of({ boulder });
       comp.ngOnInit();

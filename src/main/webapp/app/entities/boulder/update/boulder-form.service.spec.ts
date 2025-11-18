@@ -24,7 +24,7 @@ describe('Boulder Form Service', () => {
             grade: expect.any(Object),
             note: expect.any(Object),
             slope: expect.any(Object),
-            wall: expect.any(Object),
+            walls: expect.any(Object),
           }),
         );
       });
@@ -39,7 +39,7 @@ describe('Boulder Form Service', () => {
             grade: expect.any(Object),
             note: expect.any(Object),
             slope: expect.any(Object),
-            wall: expect.any(Object),
+            walls: expect.any(Object),
           }),
         );
       });

@@ -23,7 +23,8 @@
       "note": "Note",
       "slope": "Slope",
       "wall": "Wall",
-      "hold": "Hold"
+      "hold": "Hold",
+      "climb": "Climb"
     }
   }
 }

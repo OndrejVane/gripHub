@@ -79,6 +79,18 @@
                   <span jhiTranslate="global.menu.entities.boulder">Boulder</span>
                 </a>
               </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  routerLink="/climb"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="collapseNavbar()"
+                >
+                  <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                  <span jhiTranslate="global.menu.entities.climb">Climb</span>
+                </a>
+              </li>
               <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
             </ul>
           </li>

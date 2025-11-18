@@ -6,12 +6,13 @@
   "fields": [
     {
       "fieldName": "name",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "grade",
       "fieldType": "Integer",
-      "fieldValidateRules": ["min"],
+      "fieldValidateRules": ["required", "min"],
       "fieldValidateRulesMin": "0"
     },
     {
@@ -33,12 +34,19 @@
       "otherEntityRelationshipName": "boulder",
       "relationshipName": "wall",
       "relationshipSide": "left",
-      "relationshipType": "many-to-one"
+      "relationshipType": "many-to-many"
     },
     {
       "otherEntityName": "hold",
       "otherEntityRelationshipName": "boulder",
       "relationshipName": "hold",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "climb",
+      "otherEntityRelationshipName": "boulder",
+      "relationshipName": "climb",
       "relationshipSide": "right",
       "relationshipType": "one-to-many"
     }

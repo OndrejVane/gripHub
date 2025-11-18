@@ -14,7 +14,7 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type WallFormGroupInput = IWall | PartialWithRequiredKeyOf<NewWall>;
 
-type WallFormDefaults = Pick<NewWall, 'id'>;
+type WallFormDefaults = Pick<NewWall, 'id' | 'boulders'>;
 
 type WallFormGroupContent = {
   id: FormControl<IWall['id'] | NewWall['id']>;
@@ -27,6 +27,7 @@ type WallFormGroupContent = {
   columns: FormControl<IWall['columns']>;
   photo: FormControl<IWall['photo']>;
   photoContentType: FormControl<IWall['photoContentType']>;
+  boulders: FormControl<IWall['boulders']>;
 };
 
 export type WallFormGroup = FormGroup<WallFormGroupContent>;
@@ -71,6 +72,7 @@ export class WallFormService {
         validators: [Validators.required],
       }),
       photoContentType: new FormControl(wallRawValue.photoContentType),
+      boulders: new FormControl(wallRawValue.boulders ?? []),
     });
   }
 
@@ -91,6 +93,7 @@ export class WallFormService {
   private getFormDefaults(): WallFormDefaults {
     return {
       id: null,
+      boulders: [],
     };
   }
 }

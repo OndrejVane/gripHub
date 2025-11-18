@@ -1,3 +1,5 @@
+import { IBoulder } from 'app/entities/boulder/boulder.model';
+
 export interface IWall {
   id: number;
   name?: string | null;
@@ -9,6 +11,7 @@ export interface IWall {
   columns?: number | null;
   photo?: string | null;
   photoContentType?: string | null;
+  boulders?: IBoulder[] | null;
 }
 
 export type NewWall = Omit<IWall, 'id'> & { id: null };

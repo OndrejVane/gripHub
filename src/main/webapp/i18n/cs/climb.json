@@ -1,0 +1,30 @@
+{
+  "gripHubApp": {
+    "climb": {
+      "home": {
+        "title": "Climbs",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Vytvořit Climb",
+        "createOrEditLabel": "Vytvořit nebo upravit Climb",
+        "notFound": "No Climbs found"
+      },
+      "created": "Byl vytvořen potomek entity Climb s identifikátorem {{ param }}",
+      "updated": "Potomek entity Climb s identifikátorem {{ param }} byl upravený.",
+      "deleted": "Potomek entity Climb s identifikátorem {{ param }} bol smazaný.",
+      "delete": {
+        "question": "Jste si jisti, že chcete smazat Climb {{ id }}?"
+      },
+      "detail": {
+        "title": "Climb"
+      },
+      "id": "ID",
+      "attempts": "Attempts",
+      "topDate": "Top Date",
+      "rate": "Rate",
+      "note": "Note",
+      "isTop": "Is Top",
+      "boulder": "Boulder",
+      "climbedBy": "Climbed By"
+    }
+  }
+}

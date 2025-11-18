@@ -4,6 +4,8 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, from, of } from 'rxjs';
 
+import { IBoulder } from 'app/entities/boulder/boulder.model';
+import { BoulderService } from 'app/entities/boulder/service/boulder.service';
 import { WallService } from '../service/wall.service';
 import { IWall } from '../wall.model';
 import { WallFormService } from './wall-form.service';
@@ -16,6 +18,7 @@ describe('Wall Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let wallFormService: WallFormService;
   let wallService: WallService;
+  let boulderService: BoulderService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -38,17 +41,43 @@ describe('Wall Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     wallFormService = TestBed.inject(WallFormService);
     wallService = TestBed.inject(WallService);
+    boulderService = TestBed.inject(BoulderService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('should update editForm', () => {
+    it('should call Boulder query and add missing value', () => {
       const wall: IWall = { id: 5682 };
+      const boulders: IBoulder[] = [{ id: 24244 }];
+      wall.boulders = boulders;
+
+      const boulderCollection: IBoulder[] = [{ id: 24244 }];
+      jest.spyOn(boulderService, 'query').mockReturnValue(of(new HttpResponse({ body: boulderCollection })));
+      const additionalBoulders = [...boulders];
+      const expectedCollection: IBoulder[] = [...additionalBoulders, ...boulderCollection];
+      jest.spyOn(boulderService, 'addBoulderToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ wall });
       comp.ngOnInit();
 
+      expect(boulderService.query).toHaveBeenCalled();
+      expect(boulderService.addBoulderToCollectionIfMissing).toHaveBeenCalledWith(
+        boulderCollection,
+        ...additionalBoulders.map(expect.objectContaining),
+      );
+      expect(comp.bouldersSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('should update editForm', () => {
+      const wall: IWall = { id: 5682 };
+      const boulder: IBoulder = { id: 24244 };
+      wall.boulders = [boulder];
+
+      activatedRoute.data = of({ wall });
+      comp.ngOnInit();
+
+      expect(comp.bouldersSharedCollection).toContainEqual(boulder);
       expect(comp.wall).toEqual(wall);
     });
   });
@@ -118,6 +147,18 @@ describe('Wall Management Update Component', () => {
       expect(wallService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Compare relationships', () => {
+    describe('compareBoulder', () => {
+      it('should forward to boulderService', () => {
+        const entity = { id: 24244 };
+        const entity2 = { id: 3829 };
+        jest.spyOn(boulderService, 'compareBoulder');
+        comp.compareBoulder(entity, entity2);
+        expect(boulderService.compareBoulder).toHaveBeenCalledWith(entity, entity2);
+      });
     });
   });
 });

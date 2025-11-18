@@ -28,6 +28,7 @@ describe('Wall Form Service', () => {
             rows: expect.any(Object),
             columns: expect.any(Object),
             photo: expect.any(Object),
+            boulders: expect.any(Object),
           }),
         );
       });
@@ -46,6 +47,7 @@ describe('Wall Form Service', () => {
             rows: expect.any(Object),
             columns: expect.any(Object),
             photo: expect.any(Object),
+            boulders: expect.any(Object),
           }),
         );
       });

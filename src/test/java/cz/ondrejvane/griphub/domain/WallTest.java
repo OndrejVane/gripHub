@@ -55,18 +55,18 @@ class WallTest {
 
         wall.addBoulder(boulderBack);
         assertThat(wall.getBoulders()).containsOnly(boulderBack);
-        assertThat(boulderBack.getWall()).isEqualTo(wall);
+        assertThat(boulderBack.getWalls()).containsOnly(wall);
 
         wall.removeBoulder(boulderBack);
         assertThat(wall.getBoulders()).doesNotContain(boulderBack);
-        assertThat(boulderBack.getWall()).isNull();
+        assertThat(boulderBack.getWalls()).doesNotContain(wall);
 
         wall.boulders(new HashSet<>(Set.of(boulderBack)));
         assertThat(wall.getBoulders()).containsOnly(boulderBack);
-        assertThat(boulderBack.getWall()).isEqualTo(wall);
+        assertThat(boulderBack.getWalls()).containsOnly(wall);
 
         wall.setBoulders(new HashSet<>());
         assertThat(wall.getBoulders()).doesNotContain(boulderBack);
-        assertThat(boulderBack.getWall()).isNull();
+        assertThat(boulderBack.getWalls()).doesNotContain(wall);
     }
 }

@@ -14,7 +14,7 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type BoulderFormGroupInput = IBoulder | PartialWithRequiredKeyOf<NewBoulder>;
 
-type BoulderFormDefaults = Pick<NewBoulder, 'id'>;
+type BoulderFormDefaults = Pick<NewBoulder, 'id' | 'walls'>;
 
 type BoulderFormGroupContent = {
   id: FormControl<IBoulder['id'] | NewBoulder['id']>;
@@ -22,7 +22,7 @@ type BoulderFormGroupContent = {
   grade: FormControl<IBoulder['grade']>;
   note: FormControl<IBoulder['note']>;
   slope: FormControl<IBoulder['slope']>;
-  wall: FormControl<IBoulder['wall']>;
+  walls: FormControl<IBoulder['walls']>;
 };
 
 export type BoulderFormGroup = FormGroup<BoulderFormGroupContent>;
@@ -42,15 +42,17 @@ export class BoulderFormService {
           validators: [Validators.required],
         },
       ),
-      name: new FormControl(boulderRawValue.name),
+      name: new FormControl(boulderRawValue.name, {
+        validators: [Validators.required],
+      }),
       grade: new FormControl(boulderRawValue.grade, {
-        validators: [Validators.min(0)],
+        validators: [Validators.required, Validators.min(0)],
       }),
       note: new FormControl(boulderRawValue.note),
       slope: new FormControl(boulderRawValue.slope, {
         validators: [Validators.required, Validators.min(0), Validators.max(90)],
       }),
-      wall: new FormControl(boulderRawValue.wall),
+      walls: new FormControl(boulderRawValue.walls ?? []),
     });
   }
 
@@ -71,6 +73,7 @@ export class BoulderFormService {
   private getFormDefaults(): BoulderFormDefaults {
     return {
       id: null,
+      walls: [],
     };
   }
 }

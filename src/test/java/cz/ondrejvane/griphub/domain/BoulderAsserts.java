@@ -62,6 +62,6 @@ public class BoulderAsserts {
     public static void assertBoulderUpdatableRelationshipsEquals(Boulder expected, Boulder actual) {
         assertThat(actual)
             .as("Verify Boulder relationships")
-            .satisfies(a -> assertThat(a.getWall()).as("check wall").isEqualTo(expected.getWall()));
+            .satisfies(a -> assertThat(a.getWalls()).as("check walls").isEqualTo(expected.getWalls()));
     }
 }

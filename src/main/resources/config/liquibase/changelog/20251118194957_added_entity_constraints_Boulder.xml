@@ -10,9 +10,16 @@
     -->
     <changeSet id="20251118194957-2" author="jhipster">
 
+        <addForeignKeyConstraint baseColumnNames="boulder_id"
+                                 baseTableName="rel_boulder__wall"
+                                 constraintName="fk_rel_boulder__wall__boulder_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="boulder"
+                                 />
+
         <addForeignKeyConstraint baseColumnNames="wall_id"
-                                 baseTableName="boulder"
-                                 constraintName="fk_boulder__wall_id"
+                                 baseTableName="rel_boulder__wall"
+                                 constraintName="fk_rel_boulder__wall__wall_id"
                                  referencedColumnNames="id"
                                  referencedTableName="wall"
                                  />

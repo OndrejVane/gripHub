@@ -65,6 +65,8 @@ public class WallAsserts {
      * @param actual the actual entity
      */
     public static void assertWallUpdatableRelationshipsEquals(Wall expected, Wall actual) {
-        // empty method
+        assertThat(actual)
+            .as("Verify Wall relationships")
+            .satisfies(a -> assertThat(a.getBoulders()).as("check boulders").isEqualTo(expected.getBoulders()));
     }
 }

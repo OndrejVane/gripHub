@@ -1,0 +1,138 @@
+<div>
+  <h2 id="page-heading" data-cy="ClimbHeading">
+    <span jhiTranslate="gripHubApp.climb.home.title">Climbs</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="gripHubApp.climb.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-climb"
+        [routerLink]="['/climb/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gripHubApp.climb.home.createLabel">Create a new Climb</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (climbs().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="gripHubApp.climb.home.notFound">No Climbs found</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="attempts">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.climb.attempts">Attempts</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="topDate">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.climb.topDate">Top Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="rate">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.climb.rate">Rate</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="note">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.climb.note">Note</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="isTop">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.climb.isTop">Is Top</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="boulder.name">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.climb.boulder">Boulder</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="climbedBy.login">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.climb.climbedBy">Climbed By</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (climb of climbs(); track trackId(climb)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/climb', climb.id, 'view']">{{ climb.id }}</a>
+              </td>
+              <td>{{ climb.attempts }}</td>
+              <td>{{ climb.topDate | formatMediumDatetime }}</td>
+              <td>{{ climb.rate }}</td>
+              <td>{{ climb.note }}</td>
+              <td>{{ climb.isTop }}</td>
+              <td>
+                @if (climb.boulder) {
+                  <div>
+                    <a [routerLink]="['/boulder', climb.boulder.id, 'view']">{{ climb.boulder.name }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                {{ climb.climbedBy?.login }}
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/climb', climb.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a [routerLink]="['/climb', climb.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(climb)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

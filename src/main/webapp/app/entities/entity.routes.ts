@@ -21,6 +21,11 @@ const routes: Routes = [
     data: { pageTitle: 'gripHubApp.boulder.home.title' },
     loadChildren: () => import('./boulder/boulder.routes'),
   },
+  {
+    path: 'climb',
+    data: { pageTitle: 'gripHubApp.climb.home.title' },
+    loadChildren: () => import('./climb/climb.routes'),
+  },
   /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
 ];
 

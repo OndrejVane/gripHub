@@ -34,6 +34,7 @@
   "name": "Hold",
   "relationships": [
     {
+      "otherEntityField": "name",
       "otherEntityName": "wall",
       "otherEntityRelationshipName": "hold",
       "relationshipName": "wall",
@@ -41,6 +42,7 @@
       "relationshipType": "many-to-one"
     },
     {
+      "otherEntityField": "name",
       "otherEntityName": "boulder",
       "otherEntityRelationshipName": "hold",
       "relationshipName": "boulder",

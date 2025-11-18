@@ -10,7 +10,8 @@
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
         "wall": "Wall",
         "hold": "Hold",
-        "boulder": "Boulder"
+        "boulder": "Boulder",
+        "climb": "Climb"
       },
       "account": {
         "main": "Zugang",

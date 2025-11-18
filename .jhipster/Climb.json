@@ -1,0 +1,54 @@
+{
+  "annotations": {
+    "changelogDate": "20251118203116"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "attempts",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "topDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "rate",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "5",
+      "fieldValidateRulesMin": "1"
+    },
+    {
+      "fieldName": "note",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isTop",
+      "fieldType": "Boolean"
+    }
+  ],
+  "name": "Climb",
+  "relationships": [
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "boulder",
+      "otherEntityRelationshipName": "climb",
+      "relationshipName": "boulder",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "relationshipName": "climbedBy",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required",
+      "relationshipWithBuiltInEntity": true
+    }
+  ],
+  "searchEngine": "no"
+}

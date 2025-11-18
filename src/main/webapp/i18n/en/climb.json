@@ -1,0 +1,30 @@
+{
+  "gripHubApp": {
+    "climb": {
+      "home": {
+        "title": "Climbs",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Climb",
+        "createOrEditLabel": "Create or edit a Climb",
+        "notFound": "No Climbs found"
+      },
+      "created": "A new Climb is created with identifier {{ param }}",
+      "updated": "A Climb is updated with identifier {{ param }}",
+      "deleted": "A Climb is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Climb {{ id }}?"
+      },
+      "detail": {
+        "title": "Climb"
+      },
+      "id": "ID",
+      "attempts": "Attempts",
+      "topDate": "Top Date",
+      "rate": "Rate",
+      "note": "Note",
+      "isTop": "Is Top",
+      "boulder": "Boulder",
+      "climbedBy": "Climbed By"
+    }
+  }
+}

@@ -26,11 +26,13 @@ public class Boulder implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @NotNull
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @NotNull
     @Min(value = 0)
-    @Column(name = "grade")
+    @Column(name = "grade", nullable = false)
     private Integer grade;
 
     @Column(name = "note")
@@ -42,14 +44,25 @@ public class Boulder implements Serializable {
     @Column(name = "slope", nullable = false)
     private Integer slope;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "rel_boulder__wall",
+        joinColumns = @JoinColumn(name = "boulder_id"),
+        inverseJoinColumns = @JoinColumn(name = "wall_id")
+    )
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "holds", "boulders" }, allowSetters = true)
-    private Wall wall;
+    private Set<Wall> walls = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "boulder")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "wall", "boulder" }, allowSetters = true)
     private Set<Hold> holds = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "boulder")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "boulder", "climbedBy" }, allowSetters = true)
+    private Set<Climb> climbs = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -118,16 +131,26 @@ public class Boulder implements Serializable {
         this.slope = slope;
     }
 
-    public Wall getWall() {
-        return this.wall;
+    public Set<Wall> getWalls() {
+        return this.walls;
     }
 
-    public void setWall(Wall wall) {
-        this.wall = wall;
+    public void setWalls(Set<Wall> walls) {
+        this.walls = walls;
     }
 
-    public Boulder wall(Wall wall) {
-        this.setWall(wall);
+    public Boulder walls(Set<Wall> walls) {
+        this.setWalls(walls);
+        return this;
+    }
+
+    public Boulder addWall(Wall wall) {
+        this.walls.add(wall);
+        return this;
+    }
+
+    public Boulder removeWall(Wall wall) {
+        this.walls.remove(wall);
         return this;
     }
 
@@ -159,6 +182,37 @@ public class Boulder implements Serializable {
     public Boulder removeHold(Hold hold) {
         this.holds.remove(hold);
         hold.setBoulder(null);
+        return this;
+    }
+
+    public Set<Climb> getClimbs() {
+        return this.climbs;
+    }
+
+    public void setClimbs(Set<Climb> climbs) {
+        if (this.climbs != null) {
+            this.climbs.forEach(i -> i.setBoulder(null));
+        }
+        if (climbs != null) {
+            climbs.forEach(i -> i.setBoulder(this));
+        }
+        this.climbs = climbs;
+    }
+
+    public Boulder climbs(Set<Climb> climbs) {
+        this.setClimbs(climbs);
+        return this;
+    }
+
+    public Boulder addClimb(Climb climb) {
+        this.climbs.add(climb);
+        climb.setBoulder(this);
+        return this;
+    }
+
+    public Boulder removeClimb(Climb climb) {
+        this.climbs.remove(climb);
+        climb.setBoulder(null);
         return this;
     }
 

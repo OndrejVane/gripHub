@@ -2,13 +2,16 @@ import { IBoulder, NewBoulder } from './boulder.model';
 
 export const sampleWithRequiredData: IBoulder = {
   id: 30391,
-  slope: 29,
+  name: 'venture',
+  grade: 13707,
+  slope: 71,
 };
 
 export const sampleWithPartialData: IBoulder = {
-  id: 2172,
-  grade: 24294,
-  slope: 90,
+  id: 6077,
+  name: 'or how slowly',
+  grade: 32761,
+  slope: 4,
 };
 
 export const sampleWithFullData: IBoulder = {
@@ -20,7 +23,9 @@ export const sampleWithFullData: IBoulder = {
 };
 
 export const sampleWithNewData: NewBoulder = {
-  slope: 69,
+  name: 'investigate deer napkin',
+  grade: 28948,
+  slope: 31,
   id: null,
 };
 

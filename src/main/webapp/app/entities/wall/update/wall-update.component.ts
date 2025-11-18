@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, inject } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
+import { IBoulder } from 'app/entities/boulder/boulder.model';
+import { BoulderService } from 'app/entities/boulder/service/boulder.service';
 import { WallService } from '../service/wall.service';
 import { IWall } from '../wall.model';
 import { WallFormGroup, WallFormService } from './wall-form.service';
@@ -23,15 +25,20 @@ export class WallUpdateComponent implements OnInit {
   isSaving = false;
   wall: IWall | null = null;
 
+  bouldersSharedCollection: IBoulder[] = [];
+
   protected dataUtils = inject(DataUtils);
   protected eventManager = inject(EventManager);
   protected wallService = inject(WallService);
   protected wallFormService = inject(WallFormService);
+  protected boulderService = inject(BoulderService);
   protected elementRef = inject(ElementRef);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: WallFormGroup = this.wallFormService.createWallFormGroup();
+
+  compareBoulder = (o1: IBoulder | null, o2: IBoulder | null): boolean => this.boulderService.compareBoulder(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ wall }) => {
@@ -39,6 +46,8 @@ export class WallUpdateComponent implements OnInit {
       if (wall) {
         this.updateForm(wall);
       }
+
+      this.loadRelationshipsOptions();
     });
   }
 
@@ -103,5 +112,22 @@ export class WallUpdateComponent implements OnInit {
   protected updateForm(wall: IWall): void {
     this.wall = wall;
     this.wallFormService.resetForm(this.editForm, wall);
+
+    this.bouldersSharedCollection = this.boulderService.addBoulderToCollectionIfMissing<IBoulder>(
+      this.bouldersSharedCollection,
+      ...(wall.boulders ?? []),
+    );
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.boulderService
+      .query()
+      .pipe(map((res: HttpResponse<IBoulder[]>) => res.body ?? []))
+      .pipe(
+        map((boulders: IBoulder[]) =>
+          this.boulderService.addBoulderToCollectionIfMissing<IBoulder>(boulders, ...(this.wall?.boulders ?? [])),
+        ),
+      )
+      .subscribe((boulders: IBoulder[]) => (this.bouldersSharedCollection = boulders));
   }
 }

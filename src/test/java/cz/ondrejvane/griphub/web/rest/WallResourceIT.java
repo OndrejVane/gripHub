@@ -441,14 +441,7 @@ class WallResourceIT {
         Wall partialUpdatedWall = new Wall();
         partialUpdatedWall.setId(wall.getId());
 
-        partialUpdatedWall
-            .name(UPDATED_NAME)
-            .height(UPDATED_HEIGHT)
-            .minSlope(UPDATED_MIN_SLOPE)
-            .maxSlope(UPDATED_MAX_SLOPE)
-            .rows(UPDATED_ROWS)
-            .photo(UPDATED_PHOTO)
-            .photoContentType(UPDATED_PHOTO_CONTENT_TYPE);
+        partialUpdatedWall.height(UPDATED_HEIGHT).maxSlope(UPDATED_MAX_SLOPE);
 
         restWallMockMvc
             .perform(

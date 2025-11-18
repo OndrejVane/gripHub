@@ -50,7 +50,7 @@ public class Hold implements Serializable {
     private Wall wall;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "wall", "holds" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "walls", "holds", "climbs" }, allowSetters = true)
     private Boulder boulder;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

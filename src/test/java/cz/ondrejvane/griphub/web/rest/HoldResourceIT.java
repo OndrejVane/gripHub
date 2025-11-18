@@ -4,6 +4,7 @@ import static cz.ondrejvane.griphub.domain.HoldAsserts.*;
 import static cz.ondrejvane.griphub.web.rest.TestUtil.createUpdateProxyForBean;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -15,13 +16,19 @@ import cz.ondrejvane.griphub.domain.enumeration.Difficulty;
 import cz.ondrejvane.griphub.domain.enumeration.HoldType;
 import cz.ondrejvane.griphub.repository.HoldRepository;
 import jakarta.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -31,6 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link HoldResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class HoldResourceIT {
@@ -64,6 +72,9 @@ class HoldResourceIT {
 
     @Autowired
     private HoldRepository holdRepository;
+
+    @Mock
+    private HoldRepository holdRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -177,6 +188,23 @@ class HoldResourceIT {
             .andExpect(jsonPath("$.[*].row").value(hasItem(DEFAULT_ROW)))
             .andExpect(jsonPath("$.[*].holdType").value(hasItem(DEFAULT_HOLD_TYPE.toString())))
             .andExpect(jsonPath("$.[*].holdDifficulty").value(hasItem(DEFAULT_HOLD_DIFFICULTY.toString())));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllHoldsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(holdRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restHoldMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(holdRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllHoldsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(holdRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restHoldMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(holdRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -307,7 +335,11 @@ class HoldResourceIT {
         Hold partialUpdatedHold = new Hold();
         partialUpdatedHold.setId(hold.getId());
 
-        partialUpdatedHold.column(UPDATED_COLUMN).holdType(UPDATED_HOLD_TYPE).holdDifficulty(UPDATED_HOLD_DIFFICULTY);
+        partialUpdatedHold
+            .photoCoordinatesX(UPDATED_PHOTO_COORDINATES_X)
+            .photoCoordinatesY(UPDATED_PHOTO_COORDINATES_Y)
+            .column(UPDATED_COLUMN)
+            .holdType(UPDATED_HOLD_TYPE);
 
         restHoldMockMvc
             .perform(

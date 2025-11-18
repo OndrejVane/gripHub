@@ -96,6 +96,12 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
+            <th scope="col" jhiSortBy="boulder.id">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.wall.boulder">Boulder</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -118,6 +124,14 @@
                     <img [src]="'data:' + wall.photoContentType + ';base64,' + wall.photo" style="max-height: 30px" alt="wall" />
                   </a>
                   <span>{{ wall.photoContentType }}, {{ byteSize(wall.photo) }}</span>
+                }
+              </td>
+              <td>
+                @for (boulder of wall.boulders; track $index; let last = $last) {
+                  <span>
+                    <a class="form-control-static" [routerLink]="['/boulder', boulder.id, 'view']">{{ boulder.id }}</a
+                    >{{ last ? '' : ', ' }}
+                  </span>
                 }
               </td>
               <td class="text-end">
