@@ -1,5 +1,6 @@
 package cz.ondrejvane.griphub.domain;
 
+import static cz.ondrejvane.griphub.domain.BoulderTestSamples.*;
 import static cz.ondrejvane.griphub.domain.HoldTestSamples.*;
 import static cz.ondrejvane.griphub.domain.WallTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,5 +46,27 @@ class WallTest {
         wall.setHolds(new HashSet<>());
         assertThat(wall.getHolds()).doesNotContain(holdBack);
         assertThat(holdBack.getWall()).isNull();
+    }
+
+    @Test
+    void boulderTest() {
+        Wall wall = getWallRandomSampleGenerator();
+        Boulder boulderBack = getBoulderRandomSampleGenerator();
+
+        wall.addBoulder(boulderBack);
+        assertThat(wall.getBoulders()).containsOnly(boulderBack);
+        assertThat(boulderBack.getWall()).isEqualTo(wall);
+
+        wall.removeBoulder(boulderBack);
+        assertThat(wall.getBoulders()).doesNotContain(boulderBack);
+        assertThat(boulderBack.getWall()).isNull();
+
+        wall.boulders(new HashSet<>(Set.of(boulderBack)));
+        assertThat(wall.getBoulders()).containsOnly(boulderBack);
+        assertThat(boulderBack.getWall()).isEqualTo(wall);
+
+        wall.setBoulders(new HashSet<>());
+        assertThat(wall.getBoulders()).doesNotContain(boulderBack);
+        assertThat(boulderBack.getWall()).isNull();
     }
 }

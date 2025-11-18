@@ -442,8 +442,11 @@ class WallResourceIT {
         partialUpdatedWall.setId(wall.getId());
 
         partialUpdatedWall
+            .name(UPDATED_NAME)
+            .height(UPDATED_HEIGHT)
+            .minSlope(UPDATED_MIN_SLOPE)
             .maxSlope(UPDATED_MAX_SLOPE)
-            .columns(UPDATED_COLUMNS)
+            .rows(UPDATED_ROWS)
             .photo(UPDATED_PHOTO)
             .photoContentType(UPDATED_PHOTO_CONTENT_TYPE);
 

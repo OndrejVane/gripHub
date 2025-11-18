@@ -1,0 +1,47 @@
+{
+  "annotations": {
+    "changelogDate": "20251118194957"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "grade",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "note",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "slope",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRulesMax": "90",
+      "fieldValidateRulesMin": "0"
+    }
+  ],
+  "name": "Boulder",
+  "relationships": [
+    {
+      "otherEntityName": "wall",
+      "otherEntityRelationshipName": "boulder",
+      "relationshipName": "wall",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "hold",
+      "otherEntityRelationshipName": "boulder",
+      "relationshipName": "hold",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

@@ -1,5 +1,6 @@
 package cz.ondrejvane.griphub.domain;
 
+import static cz.ondrejvane.griphub.domain.BoulderTestSamples.*;
 import static cz.ondrejvane.griphub.domain.HoldTestSamples.*;
 import static cz.ondrejvane.griphub.domain.WallTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,5 +34,17 @@ class HoldTest {
 
         hold.wall(null);
         assertThat(hold.getWall()).isNull();
+    }
+
+    @Test
+    void boulderTest() {
+        Hold hold = getHoldRandomSampleGenerator();
+        Boulder boulderBack = getBoulderRandomSampleGenerator();
+
+        hold.setBoulder(boulderBack);
+        assertThat(hold.getBoulder()).isEqualTo(boulderBack);
+
+        hold.boulder(null);
+        assertThat(hold.getBoulder()).isNull();
     }
 }

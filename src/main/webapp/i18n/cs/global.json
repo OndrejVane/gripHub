@@ -9,7 +9,8 @@
         "main": "Entity",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
         "wall": "Wall",
-        "hold": "Hold"
+        "hold": "Hold",
+        "boulder": "Boulder"
       },
       "account": {
         "main": "Účet",

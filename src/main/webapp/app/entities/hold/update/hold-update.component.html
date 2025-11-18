@@ -84,7 +84,24 @@
           <select class="form-control" id="field_wall" data-cy="wall" name="wall" formControlName="wall" [compareWith]="compareWall">
             <option [ngValue]="null"></option>
             @for (wallOption of wallsSharedCollection; track $index) {
-              <option [ngValue]="wallOption">{{ wallOption.name }}</option>
+              <option [ngValue]="wallOption">{{ wallOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_boulder" jhiTranslate="gripHubApp.hold.boulder">Boulder</label>
+          <select
+            class="form-control"
+            id="field_boulder"
+            data-cy="boulder"
+            name="boulder"
+            formControlName="boulder"
+            [compareWith]="compareBoulder"
+          >
+            <option [ngValue]="null"></option>
+            @for (boulderOption of bouldersSharedCollection; track $index) {
+              <option [ngValue]="boulderOption">{{ boulderOption.id }}</option>
             }
           </select>
         </div>

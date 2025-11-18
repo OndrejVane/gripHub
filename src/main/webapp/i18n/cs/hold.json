@@ -24,7 +24,8 @@
       "row": "Row",
       "holdType": "Hold Type",
       "holdDifficulty": "Hold Difficulty",
-      "wall": "Wall"
+      "wall": "Wall",
+      "boulder": "Boulder"
     }
   }
 }

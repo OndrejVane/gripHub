@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (boulder(); as boulderRef) {
+      <div>
+        <h2 data-cy="boulderDetailsHeading"><span jhiTranslate="gripHubApp.boulder.detail.title">Boulder</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ boulderRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.boulder.name">Name</span></dt>
+          <dd>
+            <span>{{ boulderRef.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.boulder.grade">Grade</span></dt>
+          <dd>
+            <span>{{ boulderRef.grade }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.boulder.note">Note</span></dt>
+          <dd>
+            <span>{{ boulderRef.note }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.boulder.slope">Slope</span></dt>
+          <dd>
+            <span>{{ boulderRef.slope }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.boulder.wall">Wall</span></dt>
+          <dd>
+            @if (boulder()!.wall) {
+              <div>
+                <a [routerLink]="['/wall', boulder()!.wall?.id, 'view']">{{ boulderRef.wall?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/boulder', boulderRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

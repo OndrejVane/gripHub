@@ -1,0 +1,100 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-boulder-heading" data-cy="BoulderCreateUpdateHeading" jhiTranslate="gripHubApp.boulder.home.createOrEditLabel">
+        Create or edit a Boulder
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="gripHubApp.boulder.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_name" jhiTranslate="gripHubApp.boulder.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        @let gradeRef = editForm.get('grade')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_grade" jhiTranslate="gripHubApp.boulder.grade">Grade</label>
+          <input type="number" class="form-control" name="grade" id="field_grade" data-cy="grade" formControlName="grade" />
+          @if (gradeRef.invalid && (gradeRef.dirty || gradeRef.touched)) {
+            <div>
+              @if (editForm.get('grade')?.errors?.min) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.min" [translateValues]="{ min: '0' }"
+                  >This field should be at least 0.</small
+                >
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('grade')?.errors?.number" jhiTranslate="entity.validation.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_note" jhiTranslate="gripHubApp.boulder.note">Note</label>
+          <input type="text" class="form-control" name="note" id="field_note" data-cy="note" formControlName="note" />
+        </div>
+
+        @let slopeRef = editForm.get('slope')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_slope" jhiTranslate="gripHubApp.boulder.slope">Slope</label>
+          <input type="number" class="form-control" name="slope" id="field_slope" data-cy="slope" formControlName="slope" />
+          @if (slopeRef.invalid && (slopeRef.dirty || slopeRef.touched)) {
+            <div>
+              @if (editForm.get('slope')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+              @if (editForm.get('slope')?.errors?.min) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.min" [translateValues]="{ min: '0' }"
+                  >This field should be at least 0.</small
+                >
+              }
+              @if (editForm.get('slope')?.errors?.max) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.max" [translateValues]="{ max: '90' }"
+                  >This field cannot be more than 90.</small
+                >
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('slope')?.errors?.number" jhiTranslate="entity.validation.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_wall" jhiTranslate="gripHubApp.boulder.wall">Wall</label>
+          <select class="form-control" id="field_wall" data-cy="wall" name="wall" formControlName="wall" [compareWith]="compareWall">
+            <option [ngValue]="null"></option>
+            @for (wallOption of wallsSharedCollection; track $index) {
+              <option [ngValue]="wallOption">{{ wallOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

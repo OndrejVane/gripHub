@@ -6,8 +6,10 @@ import { Subject, from, of } from 'rxjs';
 
 import { IWall } from 'app/entities/wall/wall.model';
 import { WallService } from 'app/entities/wall/service/wall.service';
-import { HoldService } from '../service/hold.service';
+import { IBoulder } from 'app/entities/boulder/boulder.model';
+import { BoulderService } from 'app/entities/boulder/service/boulder.service';
 import { IHold } from '../hold.model';
+import { HoldService } from '../service/hold.service';
 import { HoldFormService } from './hold-form.service';
 
 import { HoldUpdateComponent } from './hold-update.component';
@@ -19,6 +21,7 @@ describe('Hold Management Update Component', () => {
   let holdFormService: HoldFormService;
   let holdService: HoldService;
   let wallService: WallService;
+  let boulderService: BoulderService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -42,6 +45,7 @@ describe('Hold Management Update Component', () => {
     holdFormService = TestBed.inject(HoldFormService);
     holdService = TestBed.inject(HoldService);
     wallService = TestBed.inject(WallService);
+    boulderService = TestBed.inject(BoulderService);
 
     comp = fixture.componentInstance;
   });
@@ -69,15 +73,40 @@ describe('Hold Management Update Component', () => {
       expect(comp.wallsSharedCollection).toEqual(expectedCollection);
     });
 
+    it('should call Boulder query and add missing value', () => {
+      const hold: IHold = { id: 23041 };
+      const boulder: IBoulder = { id: 24244 };
+      hold.boulder = boulder;
+
+      const boulderCollection: IBoulder[] = [{ id: 24244 }];
+      jest.spyOn(boulderService, 'query').mockReturnValue(of(new HttpResponse({ body: boulderCollection })));
+      const additionalBoulders = [boulder];
+      const expectedCollection: IBoulder[] = [...additionalBoulders, ...boulderCollection];
+      jest.spyOn(boulderService, 'addBoulderToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ hold });
+      comp.ngOnInit();
+
+      expect(boulderService.query).toHaveBeenCalled();
+      expect(boulderService.addBoulderToCollectionIfMissing).toHaveBeenCalledWith(
+        boulderCollection,
+        ...additionalBoulders.map(expect.objectContaining),
+      );
+      expect(comp.bouldersSharedCollection).toEqual(expectedCollection);
+    });
+
     it('should update editForm', () => {
       const hold: IHold = { id: 23041 };
       const wall: IWall = { id: 23247 };
       hold.wall = wall;
+      const boulder: IBoulder = { id: 24244 };
+      hold.boulder = boulder;
 
       activatedRoute.data = of({ hold });
       comp.ngOnInit();
 
       expect(comp.wallsSharedCollection).toContainEqual(wall);
+      expect(comp.bouldersSharedCollection).toContainEqual(boulder);
       expect(comp.hold).toEqual(hold);
     });
   });
@@ -158,6 +187,16 @@ describe('Hold Management Update Component', () => {
         jest.spyOn(wallService, 'compareWall');
         comp.compareWall(entity, entity2);
         expect(wallService.compareWall).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareBoulder', () => {
+      it('should forward to boulderService', () => {
+        const entity = { id: 24244 };
+        const entity2 = { id: 3829 };
+        jest.spyOn(boulderService, 'compareBoulder');
+        comp.compareBoulder(entity, entity2);
+        expect(boulderService.compareBoulder).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

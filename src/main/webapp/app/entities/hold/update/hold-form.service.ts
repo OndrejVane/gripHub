@@ -25,6 +25,7 @@ type HoldFormGroupContent = {
   holdType: FormControl<IHold['holdType']>;
   holdDifficulty: FormControl<IHold['holdDifficulty']>;
   wall: FormControl<IHold['wall']>;
+  boulder: FormControl<IHold['boulder']>;
 };
 
 export type HoldFormGroup = FormGroup<HoldFormGroupContent>;
@@ -51,6 +52,7 @@ export class HoldFormService {
       holdType: new FormControl(holdRawValue.holdType),
       holdDifficulty: new FormControl(holdRawValue.holdDifficulty),
       wall: new FormControl(holdRawValue.wall),
+      boulder: new FormControl(holdRawValue.boulder),
     });
   }
 

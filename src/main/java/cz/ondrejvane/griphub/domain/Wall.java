@@ -70,8 +70,13 @@ public class Wall implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "wall")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "wall" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "wall", "boulder" }, allowSetters = true)
     private Set<Hold> holds = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "wall")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "wall", "holds" }, allowSetters = true)
+    private Set<Boulder> boulders = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -233,6 +238,37 @@ public class Wall implements Serializable {
     public Wall removeHold(Hold hold) {
         this.holds.remove(hold);
         hold.setWall(null);
+        return this;
+    }
+
+    public Set<Boulder> getBoulders() {
+        return this.boulders;
+    }
+
+    public void setBoulders(Set<Boulder> boulders) {
+        if (this.boulders != null) {
+            this.boulders.forEach(i -> i.setWall(null));
+        }
+        if (boulders != null) {
+            boulders.forEach(i -> i.setWall(this));
+        }
+        this.boulders = boulders;
+    }
+
+    public Wall boulders(Set<Boulder> boulders) {
+        this.setBoulders(boulders);
+        return this;
+    }
+
+    public Wall addBoulder(Boulder boulder) {
+        this.boulders.add(boulder);
+        boulder.setWall(this);
+        return this;
+    }
+
+    public Wall removeBoulder(Boulder boulder) {
+        this.boulders.remove(boulder);
+        boulder.setWall(null);
         return this;
     }
 

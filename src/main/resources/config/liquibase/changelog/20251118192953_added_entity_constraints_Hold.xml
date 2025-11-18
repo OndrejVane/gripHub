@@ -16,5 +16,12 @@
                                  referencedColumnNames="id"
                                  referencedTableName="wall"
                                  />
+
+        <addForeignKeyConstraint baseColumnNames="boulder_id"
+                                 baseTableName="hold"
+                                 constraintName="fk_hold__boulder_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="boulder"
+                                 />
     </changeSet>
 </databaseChangeLog>

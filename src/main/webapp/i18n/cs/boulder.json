@@ -1,0 +1,29 @@
+{
+  "gripHubApp": {
+    "boulder": {
+      "home": {
+        "title": "Boulders",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Vytvořit Boulder",
+        "createOrEditLabel": "Vytvořit nebo upravit Boulder",
+        "notFound": "No Boulders found"
+      },
+      "created": "Byl vytvořen potomek entity Boulder s identifikátorem {{ param }}",
+      "updated": "Potomek entity Boulder s identifikátorem {{ param }} byl upravený.",
+      "deleted": "Potomek entity Boulder s identifikátorem {{ param }} bol smazaný.",
+      "delete": {
+        "question": "Jste si jisti, že chcete smazat Boulder {{ id }}?"
+      },
+      "detail": {
+        "title": "Boulder"
+      },
+      "id": "ID",
+      "name": "Name",
+      "grade": "Grade",
+      "note": "Note",
+      "slope": "Slope",
+      "wall": "Wall",
+      "hold": "Hold"
+    }
+  }
+}

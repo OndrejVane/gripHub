@@ -1,0 +1,29 @@
+{
+  "gripHubApp": {
+    "boulder": {
+      "home": {
+        "title": "Boulders",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Boulder",
+        "createOrEditLabel": "Create or edit a Boulder",
+        "notFound": "No Boulders found"
+      },
+      "created": "A new Boulder is created with identifier {{ param }}",
+      "updated": "A Boulder is updated with identifier {{ param }}",
+      "deleted": "A Boulder is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Boulder {{ id }}?"
+      },
+      "detail": {
+        "title": "Boulder"
+      },
+      "id": "ID",
+      "name": "Name",
+      "grade": "Grade",
+      "note": "Note",
+      "slope": "Slope",
+      "wall": "Wall",
+      "hold": "Hold"
+    }
+  }
+}

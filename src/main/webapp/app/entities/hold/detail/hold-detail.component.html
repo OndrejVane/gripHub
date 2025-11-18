@@ -47,7 +47,15 @@
           <dd>
             @if (hold()!.wall) {
               <div>
-                <a [routerLink]="['/wall', hold()!.wall?.id, 'view']">{{ holdRef.wall?.name }}</a>
+                <a [routerLink]="['/wall', hold()!.wall?.id, 'view']">{{ holdRef.wall?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.hold.boulder">Boulder</span></dt>
+          <dd>
+            @if (hold()!.boulder) {
+              <div>
+                <a [routerLink]="['/boulder', hold()!.boulder?.id, 'view']">{{ holdRef.boulder?.id }}</a>
               </div>
             }
           </dd>

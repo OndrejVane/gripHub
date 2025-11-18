@@ -82,9 +82,15 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="wall.name">
+            <th scope="col" jhiSortBy="wall.id">
               <div class="d-flex">
                 <span jhiTranslate="gripHubApp.hold.wall">Wall</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="boulder.id">
+              <div class="d-flex">
+                <span jhiTranslate="gripHubApp.hold.boulder">Boulder</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
@@ -112,7 +118,14 @@
               <td>
                 @if (hold.wall) {
                   <div>
-                    <a [routerLink]="['/wall', hold.wall.id, 'view']">{{ hold.wall.name }}</a>
+                    <a [routerLink]="['/wall', hold.wall.id, 'view']">{{ hold.wall.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (hold.boulder) {
+                  <div>
+                    <a [routerLink]="['/boulder', hold.boulder.id, 'view']">{{ hold.boulder.id }}</a>
                   </div>
                 }
               </td>

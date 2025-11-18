@@ -59,6 +59,13 @@
       "relationshipName": "hold",
       "relationshipSide": "right",
       "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "boulder",
+      "otherEntityRelationshipName": "wall",
+      "relationshipName": "boulder",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
     }
   ],
   "searchEngine": "no"

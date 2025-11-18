@@ -53,6 +53,9 @@ public class CacheConfiguration {
             createCache(cm, cz.ondrejvane.griphub.domain.Wall.class.getName());
             createCache(cm, cz.ondrejvane.griphub.domain.Wall.class.getName() + ".holds");
             createCache(cm, cz.ondrejvane.griphub.domain.Hold.class.getName());
+            createCache(cm, cz.ondrejvane.griphub.domain.Wall.class.getName() + ".boulders");
+            createCache(cm, cz.ondrejvane.griphub.domain.Boulder.class.getName());
+            createCache(cm, cz.ondrejvane.griphub.domain.Boulder.class.getName() + ".holds");
             // jhipster-needle-ehcache-add-entry
         };
     }

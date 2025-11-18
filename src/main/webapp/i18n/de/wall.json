@@ -26,7 +26,8 @@
       "rows": "Rows",
       "columns": "Columns",
       "photo": "Photo",
-      "hold": "Hold"
+      "hold": "Hold",
+      "boulder": "Boulder"
     }
   }
 }

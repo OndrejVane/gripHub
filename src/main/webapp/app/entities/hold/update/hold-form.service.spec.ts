@@ -27,6 +27,7 @@ describe('Hold Form Service', () => {
             holdType: expect.any(Object),
             holdDifficulty: expect.any(Object),
             wall: expect.any(Object),
+            boulder: expect.any(Object),
           }),
         );
       });
@@ -44,6 +45,7 @@ describe('Hold Form Service', () => {
             holdType: expect.any(Object),
             holdDifficulty: expect.any(Object),
             wall: expect.any(Object),
+            boulder: expect.any(Object),
           }),
         );
       });

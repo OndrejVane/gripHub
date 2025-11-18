@@ -64,6 +64,7 @@ public class HoldAsserts {
     public static void assertHoldUpdatableRelationshipsEquals(Hold expected, Hold actual) {
         assertThat(actual)
             .as("Verify Hold relationships")
-            .satisfies(a -> assertThat(a.getWall()).as("check wall").isEqualTo(expected.getWall()));
+            .satisfies(a -> assertThat(a.getWall()).as("check wall").isEqualTo(expected.getWall()))
+            .satisfies(a -> assertThat(a.getBoulder()).as("check boulder").isEqualTo(expected.getBoulder()));
     }
 }
