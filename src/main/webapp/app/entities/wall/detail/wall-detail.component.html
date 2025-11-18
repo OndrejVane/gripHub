@@ -1,0 +1,61 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (wall(); as wallRef) {
+      <div>
+        <h2 data-cy="wallDetailsHeading"><span jhiTranslate="gripHubApp.wall.detail.title">Wall</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ wallRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.wall.name">Name</span></dt>
+          <dd>
+            <span>{{ wallRef.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.wall.height">Height</span></dt>
+          <dd>
+            <span>{{ wallRef.height }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.wall.width">Width</span></dt>
+          <dd>
+            <span>{{ wallRef.width }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.wall.minSlope">Min Slope</span></dt>
+          <dd>
+            <span>{{ wallRef.minSlope }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.wall.maxSlope">Max Slope</span></dt>
+          <dd>
+            <span>{{ wallRef.maxSlope }}</span>
+          </dd>
+          <dt><span jhiTranslate="gripHubApp.wall.photo">Photo</span></dt>
+          <dd>
+            @if (wallRef.photo) {
+              <div>
+                <a (click)="openFile(wallRef.photo, wallRef.photoContentType)">
+                  <img [src]="'data:' + wallRef.photoContentType + ';base64,' + wallRef.photo" style="max-width: 100%" alt="wall" />
+                </a>
+                {{ wallRef.photoContentType }}, {{ byteSize(wallRef.photo) }}
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/wall', wallRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

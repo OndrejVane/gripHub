@@ -1,0 +1,29 @@
+{
+  "gripHubApp": {
+    "wall": {
+      "home": {
+        "title": "Walls",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Vytvořit Wall",
+        "createOrEditLabel": "Vytvořit nebo upravit Wall",
+        "notFound": "No Walls found"
+      },
+      "created": "Byl vytvořen potomek entity Wall s identifikátorem {{ param }}",
+      "updated": "Potomek entity Wall s identifikátorem {{ param }} byl upravený.",
+      "deleted": "Potomek entity Wall s identifikátorem {{ param }} bol smazaný.",
+      "delete": {
+        "question": "Jste si jisti, že chcete smazat Wall {{ id }}?"
+      },
+      "detail": {
+        "title": "Wall"
+      },
+      "id": "ID",
+      "name": "Name",
+      "height": "Height",
+      "width": "Width",
+      "minSlope": "Min Slope",
+      "maxSlope": "Max Slope",
+      "photo": "Photo"
+    }
+  }
+}

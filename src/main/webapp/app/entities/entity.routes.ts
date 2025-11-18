@@ -6,6 +6,11 @@ const routes: Routes = [
     data: { pageTitle: 'gripHubApp.adminAuthority.home.title' },
     loadChildren: () => import('./admin/authority/authority.routes'),
   },
+  {
+    path: 'wall',
+    data: { pageTitle: 'gripHubApp.wall.home.title' },
+    loadChildren: () => import('./wall/wall.routes'),
+  },
   /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
 ];
 

@@ -1,0 +1,47 @@
+{
+  "annotations": {
+    "changelogDate": "20251118175534"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "height",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "width",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "minSlope",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "max", "min"],
+      "fieldValidateRulesMax": "90",
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "maxSlope",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "max", "min"],
+      "fieldValidateRulesMax": "90",
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "photo",
+      "fieldType": "ImageBlob",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Wall",
+  "relationships": [],
+  "searchEngine": "no"
+}

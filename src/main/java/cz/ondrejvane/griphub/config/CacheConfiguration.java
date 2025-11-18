@@ -50,6 +50,7 @@ public class CacheConfiguration {
             createCache(cm, cz.ondrejvane.griphub.domain.User.class.getName());
             createCache(cm, cz.ondrejvane.griphub.domain.Authority.class.getName());
             createCache(cm, cz.ondrejvane.griphub.domain.User.class.getName() + ".authorities");
+            createCache(cm, cz.ondrejvane.griphub.domain.Wall.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

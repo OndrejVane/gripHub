@@ -1,0 +1,29 @@
+{
+  "gripHubApp": {
+    "wall": {
+      "home": {
+        "title": "Walls",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Wall erstellen",
+        "createOrEditLabel": "Wall erstellen oder bearbeiten",
+        "notFound": "Keine Walls gefunden"
+      },
+      "created": "Wall erstellt mit ID {{ param }}",
+      "updated": "Wall aktualisiert mit ID {{ param }}",
+      "deleted": "Wall gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Wall {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Wall"
+      },
+      "id": "ID",
+      "name": "Name",
+      "height": "Height",
+      "width": "Width",
+      "minSlope": "Min Slope",
+      "maxSlope": "Max Slope",
+      "photo": "Photo"
+    }
+  }
+}
