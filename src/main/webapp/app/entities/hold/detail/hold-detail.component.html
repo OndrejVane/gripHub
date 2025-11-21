@@ -34,7 +34,9 @@
           <dt><span jhiTranslate="gripHubApp.hold.holdType">Hold Type</span></dt>
           <dd>
             <span [jhiTranslate]="'gripHubApp.HoldType.' + (holdRef.holdType ?? 'null')">{{
-              { null: '', CRIMP: 'crimp', SLOPER: 'sloper', JUG: 'jug', PINCH: 'pinch', FOOTHOLD: 'foothold' }[holdRef.holdType ?? 'null']
+              { null: '', CRIMP: 'crimp', SLOPER: 'sloper', JUG: 'jug', PINCH: 'pinch', FOOTHOLD: 'foothold', UNDERCLING: 'undercling' }[
+                holdRef.holdType ?? 'null'
+              ]
             }}</span>
           </dd>
           <dt><span jhiTranslate="gripHubApp.hold.holdDifficulty">Hold Difficulty</span></dt>

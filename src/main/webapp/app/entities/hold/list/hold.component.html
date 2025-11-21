@@ -109,7 +109,15 @@
               <td>{{ hold.row }}</td>
               <td [jhiTranslate]="'gripHubApp.HoldType.' + (hold.holdType ?? 'null')">
                 {{
-                  { null: '', CRIMP: 'crimp', SLOPER: 'sloper', JUG: 'jug', PINCH: 'pinch', FOOTHOLD: 'foothold' }[hold.holdType ?? 'null']
+                  {
+                    null: '',
+                    CRIMP: 'crimp',
+                    SLOPER: 'sloper',
+                    JUG: 'jug',
+                    PINCH: 'pinch',
+                    FOOTHOLD: 'foothold',
+                    UNDERCLING: 'undercling',
+                  }[hold.holdType ?? 'null']
                 }}
               </td>
               <td [jhiTranslate]="'gripHubApp.Difficulty.' + (hold.holdDifficulty ?? 'null')">

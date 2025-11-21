@@ -8,7 +8,7 @@ export const sampleWithPartialData: IHold = {
   id: 14773,
   photoCoordinatesY: 13689,
   row: 21950,
-  holdType: 'SLOPER',
+  holdType: 'JUG',
 };
 
 export const sampleWithFullData: IHold = {
@@ -17,7 +17,7 @@ export const sampleWithFullData: IHold = {
   photoCoordinatesY: 18700,
   column: 9672,
   row: 7977,
-  holdType: 'PINCH',
+  holdType: 'FOOTHOLD',
   holdDifficulty: 'HARD',
 };
 

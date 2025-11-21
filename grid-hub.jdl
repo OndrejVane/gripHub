@@ -24,6 +24,7 @@ enum HoldType {
     JUG("jug")
     PINCH("pinch")
     FOOTHOLD("foothold")
+    UNDERCLING("undercling")
 }
 
 enum Difficulty {

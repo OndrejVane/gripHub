@@ -23,7 +23,7 @@
     {
       "fieldName": "holdType",
       "fieldType": "HoldType",
-      "fieldValues": "CRIMP (crimp),SLOPER (sloper),JUG (jug),PINCH (pinch),FOOTHOLD (foothold)"
+      "fieldValues": "CRIMP (crimp),SLOPER (sloper),JUG (jug),PINCH (pinch),FOOTHOLD (foothold),UNDERCLING (undercling)"
     },
     {
       "fieldName": "holdDifficulty",

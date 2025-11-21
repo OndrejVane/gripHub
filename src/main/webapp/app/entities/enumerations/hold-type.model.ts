@@ -8,4 +8,6 @@ export enum HoldType {
   PINCH = 'pinch',
 
   FOOTHOLD = 'foothold',
+
+  UNDERCLING = 'undercling',
 }

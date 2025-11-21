@@ -8,7 +8,8 @@ public enum HoldType {
     SLOPER("sloper"),
     JUG("jug"),
     PINCH("pinch"),
-    FOOTHOLD("foothold");
+    FOOTHOLD("foothold"),
+    UNDERCLING("undercling");
 
     private final String value;
 
